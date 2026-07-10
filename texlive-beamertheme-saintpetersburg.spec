@@ -1,40 +1,24 @@
-Name:		texlive-beamertheme-saintpetersburg
-Version:	45877
-Release:	2
-Summary:	A beamer theme that incorporates colours and fonts of Saint Petersburg State University
+%global tl_name beamertheme-saintpetersburg
+%global tl_revision 45877
+
+Name:		texlive-%{tl_name}
+Version:	%{tl_revision}
+Release:	1
+Summary:	A beamer theme that incorporates colours and fonts of Saint Petersburg State ...
 Group:		Publishing
-URL:		https://www.ctan.org/tex-archive/macros/latex/contrib/beamertheme-saintpetersburg
+URL:		https://www.ctan.org/tex-archive/macros/latex/contrib/beamer-contrib/themes/beamertheme-saintpetersburg
 License:	lppl1.3c
-Source0:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/beamertheme-saintpetersburg.r%{version}.tar.xz
-Source1:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/beamertheme-saintpetersburg.doc.r%{version}.tar.xz
-Source2:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/beamertheme-saintpetersburg.source.r%{version}.tar.xz
+Source0:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/beamertheme-saintpetersburg.r%{tl_revision}.tar.xz
+Source1:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/beamertheme-saintpetersburg.doc.r%{tl_revision}.tar.xz
+Source2:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/beamertheme-saintpetersburg.source.r%{tl_revision}.tar.xz
 BuildArch:	noarch
+BuildSystem:	texlive
 BuildRequires:	texlive-tlpkg
-Requires(pre):	texlive-tlpkg
-Requires(post):	texlive-kpathsea
+%texlive_base_requires
+Provides:	texlive(%{tl_name}) = %{tl_revision}
 
 %description
-This minimalistic beamer theme incorporates Saint Petersburg
-State University colours and fonts. It is suitable for both
-presentations and posters.
+This minimalistic beamer theme incorporates Saint Petersburg State
+University colours and fonts. It is suitable for both presentations and
+posters.
 
-%prep
-%setup -c -a1 -a2
-%autopatch -p1
-
-%build
-
-%install
-rm -rf tlpkg
-mkdir -p %{buildroot}%{_texmfdistdir}
-cp -a * %{buildroot}%{_texmfdistdir}
-
-%files
-%doc %{_texmfdistdir}/source/latex/beamertheme-saintpetersburg
-%{_texmfdistdir}/tex/latex/beamertheme-saintpetersburg
-%doc %{_texmfdistdir}/doc/latex/beamertheme-saintpetersburg
-
-%post -p %{_sbindir}/texlive.post
-
-%postun
-[ "$1" -eq 0 ] && %{_sbindir}/texlive.post
